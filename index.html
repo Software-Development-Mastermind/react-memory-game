@@ -7,42 +7,16 @@
     <title>React Memory Game</title>
     <link rel="stylesheet" href="style.css" />
 
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
   </head>
   <body>
-    <div id="app-container">
-      <!-- 
-      <div id="game-container">
-        <div class="memory-tile">
-          <img src="images/blank.png" alt="memory tile" class="memory-tile-image">
-        </div>
-        <div class="memory-tile">
-          <img src="images/blank.png" alt="memory tile" class="memory-tile-image">
-        </div>
-        <div class="memory-tile">
-          <img src="images/blank.png" alt="memory tile" class="memory-tile-image">
-        </div>
-        <div class="memory-tile">
-          <img src="images/blank.png" alt="" class="memory-tile-image">
-        </div>
-        <div class="memory-tile">
-          <img src="images/blank.png" alt="" class="memory-tile-image">
-        </div>
-        <div class="memory-tile">
-          <img src="images/blank.png" alt="" class="memory-tile-image">
-        </div>
-    </div> 
-  -->
-    </div>
+    <div id="app-container"></div>
   </body>
 
   <script type="text/babel">
-    console.log("React: ", React);
-    console.log("ReactDOM: ", ReactDOM);
-
     class MemoryTile extends React.Component {
       render() {
         console.log("props: ", this.props);
@@ -79,21 +53,19 @@
             { imageSource: "images/cow.png", isShowing: false }
           ]
         };
+
+        this.tileClicked = this.tileClicked.bind(this);
       }
 
       tileClicked(index) {
         console.log("tile was clicked in parent!!!");
-        this.setState({
+        /* this.setState({
           memoryTiles: []
-        });
+        }); */
       }
 
       render() {
-        var memoryTileElements = this.state.memoryTiles.map((tile, index) => <MemoryTile key={index}/>);
-
-        this.state.memoryTiles.forEach((item, index) => {
-
-        });
+        var memoryTileElements = [];
 
         for (let i = 0; i < this.state.memoryTiles.length; i++) {
           let tile = this.state.memoryTiles[i];
@@ -114,9 +86,7 @@
       }
     }
 
-    ReactDOM.render(
-      <GameContainer />,
-      document.getElementById("app-container")
+    ReactDOM.render(<GameContainer />, document.getElementById("app-container")
     );
   </script>
 </html>
