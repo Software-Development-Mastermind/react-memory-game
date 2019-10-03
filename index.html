@@ -1,12 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>React Memory Game</title>
-</head>
-<body>
-  <h1>Hello, World!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>React Memory Game</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="app-container">
+      <!-- 
+      <div id="game-container">
+        <div class="memory-tile">
+          <img src="images/blank.png" alt="memory tile" class="memory-tile-image">
+        </div>
+        <div class="memory-tile">
+          <img src="images/blank.png" alt="memory tile" class="memory-tile-image">
+        </div>
+        <div class="memory-tile">
+          <img src="images/blank.png" alt="memory tile" class="memory-tile-image">
+        </div>
+        <div class="memory-tile">
+          <img src="images/blank.png" alt="" class="memory-tile-image">
+        </div>
+        <div class="memory-tile">
+          <img src="images/blank.png" alt="" class="memory-tile-image">
+        </div>
+        <div class="memory-tile">
+          <img src="images/blank.png" alt="" class="memory-tile-image">
+        </div>
+    </div> 
+  -->
+    </div>
+  </body>
+
+  <script type="text/babel">
+    console.log("React: ", React);
+    console.log("ReactDOM: ", ReactDOM);
+
+    class MemoryTile extends React.Component {
+      render() {
+        console.log("props: ", this.props);
+
+        let actualImageSource = "images/blank.png";
+
+        if (this.props.isShowing === true) {
+          actualImageSource = this.props.imageSource;
+        }
+
+        return (
+          <div className="memory-tile" onClick={this.props.clickCallback}>
+            <img
+              src={actualImageSource}
+              alt="memory tile"
+              className="memory-tile-image"
+            />
+          </div>
+        );
+      }
+    }
+
+    class GameContainer extends React.Component {
+      constructor() {
+        super();
+
+        this.state = {
+          memoryTiles: [
+            { imageSource: "images/pig.png", isShowing: false },
+            { imageSource: "images/pig.png", isShowing: false },
+            { imageSource: "images/dog.png", isShowing: false },
+            { imageSource: "images/dog.png", isShowing: false },
+            { imageSource: "images/cow.png", isShowing: false },
+            { imageSource: "images/cow.png", isShowing: false }
+          ]
+        };
+      }
+
+      tileClicked(index) {
+        console.log("tile was clicked in parent!!!");
+        this.setState({
+          memoryTiles: []
+        });
+      }
+
+      render() {
+        var memoryTileElements = this.state.memoryTiles.map((tile, index) => <MemoryTile key={index}/>);
+
+        this.state.memoryTiles.forEach((item, index) => {
+
+        });
+
+        for (let i = 0; i < this.state.memoryTiles.length; i++) {
+          let tile = this.state.memoryTiles[i];
+
+          memoryTileElements.push(
+            <MemoryTile
+              key={i}
+              imageSource={tile.imageSource}
+              isShowing={tile.isShowing}
+              clickCallback={this.tileClicked}
+            />
+          );
+        }
+
+        console.log(memoryTileElements);
+
+        return <div id="game-container">{memoryTileElements}</div>;
+      }
+    }
+
+    ReactDOM.render(
+      <GameContainer />,
+      document.getElementById("app-container")
+    );
+  </script>
 </html>
